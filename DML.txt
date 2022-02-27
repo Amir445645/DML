@@ -1,0 +1,92 @@
+1)partie création:
+CREATE TABLE Customer (
+	customer_ID VARCHAR2(20) CONSTRAINT contrainte_11 PRIMARY KEY,
+	customer_Name VARCHAR2(20)CONSTRAINT contrainte_12 NOT NULL,
+	customer_ID NUMBER,
+);
+CREATE TABLE Product (
+	product_ID VARCHAR2(20) CONSTRAINT contrainte_21 PRIMARY KEY,
+	product_Name VARCHAR2(20) CONSTRAINT contrainte_22 NOT NULL,
+	price NUMBER CONSTRAINT contrainte_23 CHECK (price > 0)
+);
+CREATE TABLE Orders (
+   	
+        quantity NUMBER,
+	total_Amount NUMBER,
+        CONSTRAINT contrainte_31 PRIMARY KEY ( customer_ID,product_ID),
+        CONSTRAINT contrainte_32 FOREIGN KEY (customer_ID) REFERENCES Customer (customer_ID),
+   	CONSTRAINT contrainte_33 FOREIGN KEY (product_ID) REFERENCES Product (product_ID),
+
+
+);
+
+ALTER TABLE Product ADD Category VARCHAR2(20);
+ALTER TABLE Orders ADD Order_Date DATE CONSTRAINT DEFAULT SYSDATE();
+
+2)partie insertion:
+INSERT INTO Customer VALUES
+(
+"C01",
+"ALI",
+71321009
+);
+
+INSERT INTO Customer VALUES
+(
+"C02",
+"ASMA",
+77345823
+);
+INSERT INTO Product
+(
+product_ID,
+product_Name,
+category,
+price
+)
+VALUES
+(
+"P01",
+"Samsung Galaxy S20",
+"Smartphone",
+3299
+);
+INSERT INTO Product VALUES
+(
+"P02",
+"ASUS Notebook",
+"PC",
+4599
+);
+INSERT INTO Orders (customer_ID)
+SELECT customer_ID from Customer;
+INSERT INTO Orders (product_ID)
+SELECT product_ID from Product;
+INSERT INTO Orders 
+(
+quantity,
+total_Amount
+)
+VALUES
+(
+2,
+9198
+);
+INSERT INTO Orders (customer_ID)
+SELECT customer_ID from Customer;
+
+INSERT INTO Orders (product_ID)
+SELECT product_ID from Product;
+
+INSERT INTO Orders 
+(
+Order_Date
+quantity,
+total_Amount
+)
+VALUES
+(
+28/05/2020,
+1,
+3299
+);
